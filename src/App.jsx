@@ -1,8 +1,14 @@
-import React from "react";
+import React from 'react';
+import Board from './Components/Board';
+import './Styles/root.style.scss';
+const App = () => {
+  return (
+    <div className="app">
+      <h1>TicTacToe</h1>
+      <Board />
+    </div>
+  );
+};
 
-export default () => (
-  <>
-    <h1>Welcome to React Vite Micro App!</h1>
-    <p>Hard to get more minimal than this React app.</p>
-  </>
-);
+export default App;
+// export default () => <div>TicTacToe</div>;
