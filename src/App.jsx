@@ -101,6 +101,7 @@ const App = () => {
           Start new game
         </button>
       </div>
+      <h3>Current game history</h3>
       <History history={history} onClick={moveTo} currentMove={currentMove} />
       <div className="bg-balls"></div>
     </div>
