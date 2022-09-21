@@ -1,10 +1,15 @@
 import React from 'react';
 import Square from './Square';
 
-const Board = ({ board, showNumber }) => {
+const Board = ({ board, showNumber, winningCombination }) => {
   const updatePosition = position => {
+    const isWinningCombination = winningCombination.includes(position);
     return (
-      <Square button={board[position]} click={() => showNumber(position)} />
+      <Square
+        button={board[position]}
+        click={() => showNumber(position)}
+        isWinningCombination={isWinningCombination}
+      />
     );
   };
 

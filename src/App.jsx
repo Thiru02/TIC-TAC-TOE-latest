@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Board from './Components/Board';
 import calculateWinner from './Winner';
 import History from './Components/History';
+import StatusMessage from './Components/StatusMessage.jsx';
 import './Styles/root.style.scss';
 
 // const App = () => {
@@ -40,18 +41,19 @@ import './Styles/root.style.scss';
 
 const App = () => {
   // const [board, setBoard] = useState(Array(9).fill(null));
-  const [history, setHistory] = useState([
+  const new1 = [
     {
       board: Array(9).fill(null),
       isXNext: false,
     },
-  ]);
+  ];
+  const [history, setHistory] = useState(new1);
   const [currentMove, setCurrentMove] = useState(0);
   const current = history[currentMove];
-  const winner = calculateWinner(current.board);
-  const message = winner
-    ? `Winner is ${winner}`
-    : `Next player is ${current.isXNext ? 'X' : 'O'}`;
+  const { winner, winningCombination } = calculateWinner(current.board);
+  // const message = winner
+  //   ? `Winner is ${winner}`
+  //   : `Next player is ${current.isXNext ? 'X' : 'O'}`;
   const showNumber = position => {
     if (current.board[position] || winner) {
       return;
@@ -74,13 +76,33 @@ const App = () => {
   const moveTo = move => {
     setCurrentMove(move);
   };
+  const newGame = () => {
+    setHistory(new1);
+    setCurrentMove(0);
+  };
   // console.log(history);
   return (
     <div className="app">
-      {message}
-      <h1>TicTacToe</h1>
-      <Board board={current.board} showNumber={showNumber} />
+      <StatusMessage current={current} winner={winner} />
+      <h1>
+        Tic<span className="text-green">Tac</span>Toe
+      </h1>
+      <Board
+        board={current.board}
+        showNumber={showNumber}
+        winningCombination={winningCombination}
+      />
+      <div>
+        <button
+          type="button"
+          onClick={newGame}
+          className={`btn-reset ${winner ? 'active' : ''}`}
+        >
+          Start new game
+        </button>
+      </div>
       <History history={history} onClick={moveTo} currentMove={currentMove} />
+      <div className="bg-balls"></div>
     </div>
   );
 };
